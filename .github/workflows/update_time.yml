@@ -1,9 +1,9 @@
 name: Update Current Time
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: '*/1 * * * *'  # runs every minute
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   update_time:
@@ -11,10 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Ensure full repository history for commits
+          
       - name: Update time
         run: |
           date > currenttime.txt
+
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
