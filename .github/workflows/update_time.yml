@@ -1,6 +1,7 @@
 name: Update Current Time
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/1 * * * *'  # runs every minute
 
