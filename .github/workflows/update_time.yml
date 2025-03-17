@@ -1,0 +1,21 @@
+name: Update Current Time
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # runs every minute
+
+jobs:
+  update_time:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Update time
+        run: |
+          date > currenttime.txt
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add currenttime.txt
+          git commit -m "Update current time" || echo "No changes"
+          git push
